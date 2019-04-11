@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_160631) do
     t.string "name"
     t.string "catch_phrase"
     t.string "logo"
+    t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
