@@ -25,19 +25,19 @@ product_images = [
 
 
 Company.destroy_all
-20.times do
+5.times do
   Company.create(name: "#{Faker::Company.name} #{Faker::Company.suffix}", catch_phrase: Faker::Company.catch_phrase, logo: Faker::Company.logo, password: "aaa")
 end
 
 Product.destroy_all
 
-40.times do
+10.times do
   Product.create(name: Faker::Commerce.product_name, company_id: (Random.rand(19) + 1), quota: 1000, completed: false, category: Faker::Commerce.department(1), description: Faker::Lorem.paragraph(10), img: product_images[Random.rand(13)])
 end
 
 User.destroy_all
 
-50.times do
+20.times do
   User.create(username: Faker::Internet.unique.username, email: Faker::Internet.free_email, img: Faker::Avatar.image, password: "aaa")
 end
 
