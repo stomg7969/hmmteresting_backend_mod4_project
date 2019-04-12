@@ -24,4 +24,12 @@ class CompaniesController < ApplicationController
     company = Company.find(params[:id])
     company.destroy
   end
+
+  def company_products
+    company = Company.find(params[:id])
+    company_products = company.products
+
+    render json: company_products
+  end
+
 end
