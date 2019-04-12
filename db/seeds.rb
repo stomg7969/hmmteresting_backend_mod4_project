@@ -32,7 +32,7 @@ end
 Product.destroy_all
 
 10.times do
-  Product.create(name: Faker::Commerce.product_name, company_id: (Random.rand(19) + 1), quota: 1000, completed: false, category: Faker::Commerce.department(1), description: Faker::Lorem.paragraph(10), img: product_images[Random.rand(13)])
+  Product.create(name: Faker::Commerce.product_name, company_id: (Random.rand(4) + 1), quota: 1000, completed: false, category: Faker::Commerce.department(1), description: Faker::Lorem.paragraph(10), img: product_images[Random.rand(13)])
 end
 
 User.destroy_all
@@ -44,7 +44,7 @@ end
 Interest.destroy_all
 
 10.times do
-  Interest.create(user_id: (Random.rand(49)+1), product_id: (Random.rand(39)+1))
+  Interest.create(user_id: (Random.rand(19)+1), product_id: (Random.rand(9)+1))
 end
 
 
