@@ -46,9 +46,3 @@ Interest.destroy_all
 10.times do
   Interest.create(user_id: (Random.rand(19)+1), product_id: (Random.rand(9)+1))
 end
-
-
-
-
-
-# i1 = Interest.create(user: u1, product: p1)
