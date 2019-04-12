@@ -23,6 +23,14 @@ product_images = [
   'http://www.papercraftsquare.com/wp-content/uploads/2016/11/MechWarrior-4-Mad-Dog-Vulture-Mech-Paper-Model.jpg'
 ]
 
+product_categories = [
+  'Technology',
+  'Toys',
+  'Music Instrument',
+  'Clothing',
+  'Furniture'
+]
+
 
 Company.destroy_all
 5.times do
@@ -32,7 +40,7 @@ end
 Product.destroy_all
 
 10.times do
-  Product.create(name: Faker::Commerce.product_name, company_id: (Random.rand(4) + 1), quota: 1000, completed: false, category: Faker::Commerce.department(1), description: Faker::Lorem.paragraph(10), img: product_images[Random.rand(13)])
+  Product.create(name: Faker::Commerce.product_name, company_id: (Random.rand(4) + 1), quota: 1000, completed: false, category: product_categories[Random.rand(4)], description: Faker::Lorem.paragraph(10), img: product_images[Random.rand(13)])
 end
 
 User.destroy_all
