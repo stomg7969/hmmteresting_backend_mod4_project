@@ -34,7 +34,7 @@ product_categories = [
 
 Company.destroy_all
 5.times do
-  Company.create(name: "#{Faker::Company.name} #{Faker::Company.suffix}", catch_phrase: Faker::Company.catch_phrase, logo: Faker::Company.logo, password: "aaa")
+  Company.create(name: "#{Faker::Company.name} #{Faker::Company.suffix}", catch_phrase: Faker::Company.catch_phrase, logo: Faker::Company.logo, password_digest: "aaa")
 end
 
 Product.destroy_all
@@ -46,7 +46,7 @@ end
 User.destroy_all
 
 20.times do
-  User.create(username: Faker::Internet.unique.username, email: Faker::Internet.free_email, img: Faker::Avatar.image, password: "aaa")
+  User.create(username: Faker::Internet.unique.username, email: Faker::Internet.free_email, img: Faker::Avatar.image, password_digest: "aaa")
 end
 
 Interest.destroy_all
