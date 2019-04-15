@@ -46,7 +46,7 @@ end
 User.destroy_all
 
 20.times do
-  User.create(username: Faker::Internet.unique.username, email: Faker::Internet.free_email, img: Faker::Avatar.image, password_digest: "aaa")
+  User.create(username: Faker::Internet.unique.username, email: Faker::Internet.free_email, img: Faker::Avatar.image, password: "aaa")
 end
 
 Interest.destroy_all

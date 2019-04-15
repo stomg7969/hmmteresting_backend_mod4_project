@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create, :get_user]
 
   def index
     users = User.all
@@ -18,8 +18,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-  user = User.create(user_params)
-
+    user = User.create(user_params)
     if user.valid?
       token = JWT.encode({user_id: user.id}, "my_s3cr3t")
       render json: { user: {username: user.username, email: user.email, img: user.img}, token: token}, status: :created
@@ -28,25 +27,26 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  def destroy
-    user = User.find(params[:id])
-    user.destroy
-  end
 
   def get_user
-    # byebug
     token = request.headers["authorization"]
     id = JWT.decode(token, 'my_s3cr3t')[0]['user_id']
-    byebug
     user = User.find(id)
     if user.valid?
       render json: { user: { username: user.username } }
     end
   end
   # how to store 'my_s3cr3t' into .env?
+  # I think the answer is using the Figaro Gem
+
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:username, :img, :email, :password_digest)
+    params.require(:user).permit(:username, :img, :email, :password)
   end
 end
