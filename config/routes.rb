@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :auth
       resources :users
       resources :companies
-      get '/get_user', to: 'users#get_user'
+      get '/get_user', to: 'users#profile'
       post '/login_user', to: 'auth#create'
     end
   end

@@ -6,12 +6,12 @@ class ApplicationController < ActionController::API
   end
 
   def auth_header
-    request.headers['Authorization'] # Bearer <token>
+    request.headers['authorization'] # Bearer <token>
   end
 
   def decoded_token
     if auth_header()
-      token = auth_header.split(' ')[1] #[Bearer, <token>]
+      token = auth_header #[Bearer, <token>]
       begin
         JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
         # JWT.decode => [{ "user_id"=>"2" }, { "alg"=>"HS256" }]
