@@ -33,7 +33,7 @@ class Api::V1::UsersController < ApplicationController
 
   def get_user
     token = request.headers["authorization"]
-    # byebug
+    # byebug olleh
     id = JWT.decode(token, 'my_s3cr3t')[0]['user_id']
     user = User.find(id)
     if user.valid?
