@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create, :get_user]
 
   def index
     users = User.all
@@ -31,15 +31,16 @@ class Api::V1::UsersController < ApplicationController
     render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
 
-  # def get_user
-  #   token = request.headers["authorization"]
-  #   id = JWT.decode(token, 'my_s3cr3t')[0]['user_id']
-  #   user = User.find(id)
-  #   if user.valid?
-  #     render json: { user: { username: user.username } }
-  #   end
-  # end
-  # how to store 'my_s3cr3t' into .env?
+  def get_user
+    token = request.headers["authorization"]
+    # byebug
+    id = JWT.decode(token, 'my_s3cr3t')[0]['user_id']
+    user = User.find(id)
+    if user.valid?
+      render json: { user: user  }
+    end
+  end
+  # how to store ENV['my_s3cr3t]' into .env?
   # I think the answer is using the Figaro Gem
 
   def destroy
