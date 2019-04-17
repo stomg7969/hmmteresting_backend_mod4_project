@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :get_user]
+  skip_before_action :authorized, only: [:create, :get_user, :index]
 
   def index
     users = User.all
@@ -13,7 +13,7 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    user.update(username: params[:username], img: params[:img], email: params[:email], password_digest: params[:password_digest])
+    user.update(username: params[:username], img: params[:img], email: params[:email])
     render json: user
   end
 
@@ -54,3 +54,4 @@ class Api::V1::UsersController < ApplicationController
     params.require(:user).permit(:username, :img, :email, :password)
   end
 end
+# user.update(username: params[:username], img: params[:img], email: params[:email], password_digest: params[:password_digest])
