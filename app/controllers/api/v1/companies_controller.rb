@@ -1,4 +1,6 @@
 class Api::V1::CompaniesController < ApplicationController
+  skip_before_action :authorized, only: [:create, :get_company, :destroy, :update]
+
 
   def index
     companies = Company.all
@@ -11,8 +13,14 @@ class Api::V1::CompaniesController < ApplicationController
   end
 
   def create
-    company = Company.create(name: params[:name], catch_phrase: params[:catch_phrase], logo: params[:logo])
-    render json: company
+    company = Company.create(company_params)
+    if company.valid?
+      token = JWT.encode({company_id: company.id}, "my_s3cr3t")
+
+      render json: { company: {name: company.name, catch_phrase: company.catch_phrase, logo: company.logo}, token: token}, status: :created
+    else
+      render json: { error: 'failed to create company' }, status: :not_acceptable
+    end
   end
 
   def update
@@ -26,11 +34,21 @@ class Api::V1::CompaniesController < ApplicationController
     company.destroy
   end
 
-  def company_products
-    company = Company.find(params[:id])
-    company_products = company.products
+  def get_company
+    token = request.headers["authorization"]
 
-    render json: company_products
+    id = JWT.decode(token, 'my_s3cr3t')[0]['company_id']
+    company = Company.find(id)
+
+    if company.valid?
+      render json: company
+    end
+  end
+
+  private
+
+  def company_params
+    params.require(:company).permit(:name, :catch_phrase, :logo, :password)
   end
 
 end

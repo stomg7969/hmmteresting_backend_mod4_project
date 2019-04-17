@@ -33,11 +33,10 @@ class Api::V1::UsersController < ApplicationController
 
   def get_user
     token = request.headers["authorization"]
-    # byebug olleh
     id = JWT.decode(token, 'my_s3cr3t')[0]['user_id']
     user = User.find(id)
     if user.valid?
-      render json: { user: user  }
+      render json: user
     end
   end
   # how to store ENV['my_s3cr3t]' into .env?

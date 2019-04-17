@@ -34,7 +34,7 @@ product_categories = [
 
 Company.destroy_all
 5.times do
-  Company.create(name: "#{Faker::Company.name} #{Faker::Company.suffix}", catch_phrase: Faker::Company.catch_phrase, logo: Faker::Company.logo, password_digest: "aaa")
+  Company.create(name: "#{Faker::Company.name} #{Faker::Company.suffix}", catch_phrase: Faker::Company.catch_phrase, logo: Faker::Company.logo, password: "aaa") 
 end
 
 Product.destroy_all
